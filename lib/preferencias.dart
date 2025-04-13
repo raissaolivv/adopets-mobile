@@ -43,13 +43,7 @@ class _PreferenciasState extends State<Preferencias> {
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  labelText: "Animal (Gato, cachorro, etc.)",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),                    
+                  labelText: "Animal (Gato, cachorro, etc.)",                 
                 ),
               ),  
               SizedBox(height: 10),
@@ -59,14 +53,7 @@ class _PreferenciasState extends State<Preferencias> {
                 },
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: "Idade mínima",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
+                  labelText: "Idade mínima",                  
                 ),
               ),
               SizedBox(height: 10),
@@ -76,20 +63,13 @@ class _PreferenciasState extends State<Preferencias> {
                 },
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: "Idade máxima",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
+                  labelText: "Idade máxima",                  
                 ),
               ),
               SizedBox(height: 10),
               SizedBox(
                 child: Dropdown(items: ["Feminino", "Masculino", "Indefinido"],
-                  initialSelection: "Indefinido", 
+                  placeholder: "Sexo",
                   onChanged: (value){
                     setState(() {
                       selectedValue = value;
@@ -101,7 +81,7 @@ class _PreferenciasState extends State<Preferencias> {
               SizedBox(height: 10),
               SizedBox(
                 child: Dropdown(items: ["Pequeno", "Médio", "Grande"],
-                  initialSelection: "Pequeno", 
+                  placeholder: "Porte",
                   onChanged: (value){
                     setState(() {
                       selectedValue = value;
@@ -117,14 +97,7 @@ class _PreferenciasState extends State<Preferencias> {
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  labelText: "Raça",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
+                  labelText: "Raça",                  
                 ),
               ),
               SizedBox(height: 10),
@@ -134,14 +107,7 @@ class _PreferenciasState extends State<Preferencias> {
                 },
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: "Distância máxima(km)",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
+                  labelText: "Distância máxima(km)",                  
                 ),
               ),  
               SizedBox(height: 15),

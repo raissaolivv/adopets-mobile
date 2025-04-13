@@ -33,7 +33,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       child: TextField(
         controller: _dateController,
         decoration: InputDecoration(
-          fillColor: Color.fromRGBO(196, 108, 68, 0.3),
           prefixIcon: Icon(Icons.calendar_today),
           labelText: "Escolha uma data",
           border: OutlineInputBorder(),

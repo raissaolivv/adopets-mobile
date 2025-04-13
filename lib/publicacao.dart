@@ -1,4 +1,6 @@
+import 'package:adopets/detalhes_pet.dart';
 import 'package:flutter/material.dart';
+
 
 class Publicacao extends StatelessWidget {
   final String nomeDoador;
@@ -91,7 +93,14 @@ class Publicacao extends StatelessWidget {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetalhesPetPage(),
+                    ),
+                  );
+                },
                 icon: Image.asset(
                   "assets/images/saber_mais.png",
                   width: 24,

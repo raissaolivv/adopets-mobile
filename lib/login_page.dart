@@ -1,6 +1,5 @@
 import 'package:adopets/barra_navegacao_inferior.dart';
 import 'package:adopets/cadastro_page.dart';
-import 'package:adopets/home_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,15 +18,11 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         elevation: 4.0,
         backgroundColor: Color.fromRGBO(218, 196, 176, 1.0),
-        
+
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/images/logo.png",
-              width: 30,
-              height: 30,
-            ),
+            Image.asset("assets/images/logo.png", width: 30, height: 30),
             SizedBox(width: 10),
             Text("Adopets"),
           ],
@@ -48,90 +43,70 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 22,
                     //fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(188, 68, 60, 1),
-                    fontFamily: "ABeeZee"
-                  )
+                    fontFamily: "ABeeZee",
                   ),
+                ),
                 SizedBox(height: 80),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     email = text;
                   },
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
-                  ),
+                  decoration: InputDecoration(labelText: "Email"),
                 ),
                 SizedBox(height: 10),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     senha = text;
                   },
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: "Senha",
-                    filled: true,
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white)
-                  ),
+                  decoration: InputDecoration(labelText: "Senha"),
                 ),
                 SizedBox(height: 15),
                 ElevatedButton(
-                  onPressed: (){
-                    if(email == "teste@email.com" && senha == "123"){
+                  onPressed: () {
+                    if (email == "teste@email.com" && senha == "123") {
                       print("correto");
-                    }else{
+                    } else {
                       print("incorreto");
                     }
                     Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const BottomNavigationBarExample()),
-                      );
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => const BottomNavigationBarExample(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(216, 99, 73, 0.7)
+                    backgroundColor: Color.fromRGBO(216, 99, 73, 0.7),
                   ),
-                  child: Text(
-                    "Entrar",
-                     style: TextStyle(
-                        color: Colors.white
-                    )
-                  )
+                  child: Text("Entrar", style: TextStyle(color: Colors.white)),
                 ),
                 SizedBox(height: 55),
                 GestureDetector(
-                  onTap:(){
+                  onTap: () {
                     Navigator.push(
-                      context, 
+                      context,
                       MaterialPageRoute(builder: (context) => CadastroPage()),
-                      );
-                  },                    
+                    );
+                  },
                   child: Text(
                     "Cadastre-se aqui",
                     style: TextStyle(
                       fontSize: 17,
-                      //fontWeight: FontWeight.bold,
                       color: Color.fromRGBO(188, 68, 60, 1),
                       fontFamily: "ABeeZee",
                       decoration: TextDecoration.underline,
                       decorationColor: Color.fromRGBO(188, 68, 60, 1),
-                    )
+                    ),
                   ),
-                )
+                ),
               ],
-            )
-          )
-        )
-      )
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

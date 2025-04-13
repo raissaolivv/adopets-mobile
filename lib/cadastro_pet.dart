@@ -17,7 +17,7 @@ class _CadastroPetState extends State<CadastroPet> {
   String? vacinas = "";
   String? descricao = "";
 
-  String? selectedValue; 
+  String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,148 +34,115 @@ class _CadastroPetState extends State<CadastroPet> {
                 "Cadastre um animalzinho",
                 style: TextStyle(
                   fontSize: 20,
-                  
+
                   color: Color.fromRGBO(188, 68, 60, 1),
-                  fontFamily: "ABeeZee"
-                )
-              ),    
+                  fontFamily: "ABeeZee",
+                ),
+              ),
               SizedBox(height: 35),
               SizedBox(
-                width: 350, 
-                height: 120, 
-                child: AdicionarFotoPage("Adicione algumas fotos do pet"),
-              ),                
+                width: 350,
+                height: 160,
+                child: AdicionarFotoPage(
+                  descricaoImagem: "Adicione algumas fotos do pet",
+                  permiteMultiplasImagens: true,
+                ),
+              ),
               SizedBox(height: 10),
               TextField(
-                onChanged: (text){
+                onChanged: (text) {
                   animal = text;
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "Animal (Gato, cachorro, etc.)",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),                    
                 ),
-              ),  
+              ),
               SizedBox(height: 10),
               TextField(
-                onChanged: (text){
+                onChanged: (text) {
                   idade = text;
                 },
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: "Idade do pet",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
                 ),
               ),
               SizedBox(height: 10),
               SizedBox(
-                child: Dropdown(items: ["Feminino", "Masculino", "Indefinido"],
-                  initialSelection: "Indefinido", 
-                  onChanged: (value){
+                child: Dropdown(
+                  items: ["Feminino", "Masculino", "Indefinido"],
+                  placeholder: "Sexo",
+                  onChanged: (value) {
                     setState(() {
                       selectedValue = value;
                     });
-                  }, 
+                  },
                   key: ValueKey('dropdown_sexo_${selectedValue ?? "null"}'),
                 ),
-                
               ),
               SizedBox(height: 10),
               SizedBox(
-                child: Dropdown(items: ["Pequeno", "Médio", "Grande"],
-                  initialSelection: "Pequeno", 
-                  onChanged: (value){
+                child: Dropdown(
+                  items: ["Pequeno", "Médio", "Grande"],
+                  placeholder: "Porte",
+                  onChanged: (value) {
                     setState(() {
                       selectedValue = value;
                     });
-                  }, 
+                  },
                   key: ValueKey('dropdown_sexo_${selectedValue ?? "null"}'),
                 ),
-                
               ),
               SizedBox(height: 10),
               TextField(
-                onChanged: (text){
+                onChanged: (text) {
                   raca = text;
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "Raça",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
                 ),
               ),
               SizedBox(height: 10),
               TextField(
-                onChanged: (text){
+                onChanged: (text) {
                   vacinas = text;
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "Vacinas já aplicadas",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                  
                 ),
               ),
               SizedBox(height: 10),
               TextField(
-                onChanged: (text){
+                onChanged: (text) {
                   descricao = text;
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "Descrição",
-                  filled: true,
-                  border:OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white)
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                  fillColor: Color.fromRGBO(196, 108, 68, 0.3),                  
                 ),
-              ),      
+              ),
               SizedBox(height: 15),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const BottomNavigationBarExample()),
-                      );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(216, 99, 73, 0.7)
-                  ),
-                  child: Text(
-                    "Cadastrar",
-                     style: TextStyle(
-                        color: Colors.white
-                    )
-                  )
-                ),          
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BottomNavigationBarExample(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(216, 99, 73, 0.7),
+                ),
+                child: Text("Cadastrar", style: TextStyle(color: Colors.white)),
+              ),
             ],
-          )
-        )
-      )
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,8 +1,6 @@
 import 'package:adopets/cadastro2_page.dart';
-import 'package:adopets/dropdown.dart';
 import 'package:estados_municipios/estados_municipios.dart';
 import 'package:flutter/material.dart';
-
 
 class Cadastro1Page extends StatefulWidget {
   const Cadastro1Page({super.key});
@@ -12,8 +10,7 @@ class Cadastro1Page extends StatefulWidget {
 }
 
 class _Cadastro1PageState extends State<Cadastro1Page> {
-  
-  final EstadosMunicipiosController  controller = EstadosMunicipiosController();
+  final EstadosMunicipiosController controller = EstadosMunicipiosController();
 
   List<Estado> estados = [];
   List<Municipio> municipios = [];
@@ -23,7 +20,6 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
   String? municipioSelecionado;
   String? siglaEstadoSelecionado;
 
-  
   String? cep = "";
   String? logradouro = "";
   String? numero = "";
@@ -59,15 +55,11 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
       appBar: AppBar(
         elevation: 4.0,
         backgroundColor: Color.fromRGBO(218, 196, 176, 1.0),
-        
+
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/images/logo.png",
-              width: 30,
-              height: 30,
-            ),
+            Image.asset("assets/images/logo.png", width: 30, height: 30),
             SizedBox(width: 10),
             Text("Adopets"),
           ],
@@ -87,29 +79,27 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                   "Cadastre-se",
                   style: TextStyle(
                     fontSize: 22,
-                    //fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(188, 68, 60, 1),
-                    fontFamily: "ABeeZee"
-                  )
+                    fontFamily: "ABeeZee",
                   ),
-                  SizedBox(height: 80),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Endereço",
-                      style: TextStyle(
-                        fontSize: 18,
-                        //fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(188, 68, 60, 1),
-                        fontFamily: "ABeeZee"
-                      )
-                      ),
-                  ),                     
-                  SizedBox(height: 10),
+                ),
+                SizedBox(height: 80),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Endereço",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(188, 68, 60, 1),
+                      fontFamily: "ABeeZee",
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
                 //   SizedBox(
                 //   child: Dropdown(
                 //     //items: estados.map((estado) => estado.nome).toList(),
-                //     //initialSelection: estados.isNotEmpty ? estados.first.nome : null, 
+                //     //initialSelection: estados.isNotEmpty ? estados.first.nome : null,
                 //     items: _dropdownItems,
                 //     onChanged: (value){
                 //       setState(() {
@@ -119,7 +109,7 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                 //             (e) => e.nome == value,
                 //             orElse: () => estados.first // Usa o primeiro estado como fallback
                 //           ).sigla;
-                //         }                   
+                //         }
                 //       });
                 //       if(siglaEstadoSelecionado != null){
                 //         carregarMunicipios(siglaEstadoSelecionado!);
@@ -127,13 +117,13 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                 //     },
                 //     key: ValueKey('dropdown_estado_'),
                 //   ),
-                  
+
                 // ),
                 // SizedBox(height: 10),
                 //   SizedBox(
                 //   child: Dropdown(
                 //     items: municipios.map((municipio) => municipio.nome).toList(),
-                //     initialSelection: municipios.isNotEmpty ? municipios.first.nome : null, 
+                //     initialSelection: municipios.isNotEmpty ? municipios.first.nome : null,
                 //     onChanged: (value){
                 //       setState(() {
                 //         municipioSelecionado = value;
@@ -141,101 +131,57 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                 //     },
                 //     key: ValueKey('dropdown_municipio_${municipioSelecionado ?? "null"}'),
                 //   ),
-                  
+
                 // ),
-                  SizedBox(height: 10),
-                  TextField(
-                  onChanged: (text){
+                SizedBox(height: 10),
+                TextField(
+                  onChanged: (text) {
                     cep = text;
                   },
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: "CEP",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),                    
-                  ),
+                  decoration: InputDecoration(labelText: "CEP"),
                 ),
                 SizedBox(height: 10),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     logradouro = text;
                   },
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: "Logradouro",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
-                  ),
+                  decoration: InputDecoration(labelText: "Logradouro"),
                 ),
-                
+
                 SizedBox(height: 10),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     numero = text;
                   },
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: "Nº",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
-                  ),
+                  decoration: InputDecoration(labelText: "Nº"),
                 ),
                 SizedBox(height: 10),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     bairro = text;
                   },
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: "Bairro",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
-                  ),
+                  decoration: InputDecoration(labelText: "Bairro"),
                 ),
                 SizedBox(height: 10),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     complemento = text;
                   },
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: "Complemento",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
-                  ),
+                  decoration: InputDecoration(labelText: "Complemento"),
                 ),
                 SizedBox(height: 50),
                 GestureDetector(
-                  onTap:(){
+                  onTap: () {
                     Navigator.push(
-                      context, 
+                      context,
                       MaterialPageRoute(builder: (context) => Cadastro2Page()),
-                      );
-                  },                    
+                    );
+                  },
                   child: Text(
                     "Próximo",
                     style: TextStyle(
@@ -245,14 +191,14 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                       fontFamily: "ABeeZee",
                       decoration: TextDecoration.underline,
                       decorationColor: Color.fromRGBO(188, 68, 60, 1),
-                    )
+                    ),
                   ),
-                )
+                ),
               ],
-            )
-          )
-        )
-      )
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

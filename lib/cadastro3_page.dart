@@ -1,4 +1,4 @@
-import 'package:adopets/home_page.dart';
+import 'package:adopets/barra_navegacao_inferior.dart';
 import 'package:flutter/material.dart';
 
 class Cadastro3Page extends StatefulWidget {
@@ -72,12 +72,6 @@ class _Cadastro3PageState extends State<Cadastro3Page> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: "Email",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
                     
                   ),
                 ),
@@ -89,12 +83,6 @@ class _Cadastro3PageState extends State<Cadastro3Page> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Senha",
-                    filled: true,
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white)
                   ),
                 ),
                 SizedBox(height: 10),
@@ -105,12 +93,6 @@ class _Cadastro3PageState extends State<Cadastro3Page> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Confirmação da senha",
-                    filled: true,
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white)
                   ),
                 ),
                 SizedBox(height: 15),
@@ -118,7 +100,7 @@ class _Cadastro3PageState extends State<Cadastro3Page> {
                   onPressed: (){
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => const BottomNavigationBarExample()),
                       );
                   },
                   style: ElevatedButton.styleFrom(

@@ -13,7 +13,7 @@ class CadastroPage extends StatefulWidget {
 class _CadastroPageState extends State<CadastroPage> {
   String nome = "";
   String sobrenome = "";
-  String? selectedValue; 
+  String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +23,7 @@ class _CadastroPageState extends State<CadastroPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/images/logo.png",
-              width: 30,
-              height: 30,
-            ),
+            Image.asset("assets/images/logo.png", width: 30, height: 30),
             SizedBox(width: 10),
             Text("Adopets"),
           ],
@@ -47,55 +43,40 @@ class _CadastroPageState extends State<CadastroPage> {
                   "Cadastre-se",
                   style: TextStyle(
                     fontSize: 22,
-                    //fontWeight: FontWeight.bold,
                     color: Color.fromRGBO(188, 68, 60, 1),
-                    fontFamily: "ABeeZee"
-                  )
+                    fontFamily: "ABeeZee",
                   ),
-                  SizedBox(height: 80),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Informações pessoais",
-                      style: TextStyle(
-                        fontSize: 18,
-                        //fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(188, 68, 60, 1),
-                        fontFamily: "ABeeZee"
-                      )
-                      ),
-                  ),                     
-                  SizedBox(height: 10),
-                  TextField(
-                  onChanged: (text){
+                ),
+                SizedBox(height: 80),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Informações pessoais",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(188, 68, 60, 1),
+                      fontFamily: "ABeeZee",
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  onChanged: (text) {
                     nome = text;
                   },
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: "Nome",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),                    
                   ),
                 ),
                 SizedBox(height: 10),
                 TextField(
-                  onChanged: (text){
+                  onChanged: (text) {
                     sobrenome = text;
                   },
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: "Sobrenome",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
                   ),
                 ),
                 SizedBox(height: 10),
@@ -103,41 +84,47 @@ class _CadastroPageState extends State<CadastroPage> {
                 Center(child: DatePickerWidget()),
                 SizedBox(height: 10),
                 SizedBox(
-                  child: Dropdown(items: ["Feminino", "Masculino", "Transexual", "Não-binário", "Prefiro não responder"],
-                    initialSelection: "Feminino", 
-                    onChanged: (value){
+                  child: Dropdown(
+                    items: [
+                      "Feminino",
+                      "Masculino",
+                      "Transexual",
+                      "Não-binário",
+                      "Prefiro não responder",
+                    ],
+                    placeholder: "Sexo",
+                    onChanged: (value) {
                       setState(() {
                         selectedValue = value;
                       });
-                    }, 
+                    },
                     key: ValueKey('dropdown_sexo_${selectedValue ?? "null"}'),
-                  ),                  
+                  ),
                 ),
                 SizedBox(height: 50),
                 GestureDetector(
-                  onTap:(){
+                  onTap: () {
                     Navigator.push(
-                      context, 
+                      context,
                       MaterialPageRoute(builder: (context) => Cadastro1Page()),
-                      );
-                  },                    
+                    );
+                  },
                   child: Text(
                     "Próximo",
                     style: TextStyle(
                       fontSize: 17,
-                      //fontWeight: FontWeight.bold,
                       color: Color.fromRGBO(188, 68, 60, 1),
                       fontFamily: "ABeeZee",
                       decoration: TextDecoration.underline,
-                       decorationColor: Color.fromRGBO(188, 68, 60, 1),
-                    )
+                      decorationColor: Color.fromRGBO(188, 68, 60, 1),
+                    ),
                   ),
-                )
+                ),
               ],
-            )
-          )
-        )
-      )
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

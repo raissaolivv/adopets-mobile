@@ -69,13 +69,13 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                   SizedBox(height: 10),
                   SizedBox(
                     width: 350, 
-                    height: 120, 
-                    child: AdicionarFotoPage("Adicione uma foto de perfil"),
+                    height: 160, 
+                    child: AdicionarFotoPage(descricaoImagem: "Adicione uma foto de perfil", permiteMultiplasImagens: false),
                   ),
                   SizedBox(height: 10),
                   SizedBox(
                   child: Dropdown(items: ["Casa", "Apartamento", "Kitnet", "Campo", "Outro"],
-                                  initialSelection: "Casa", 
+                                  placeholder: "Tipo de moradia",
                                   onChanged: (value){
                                     setState(() {
                                       selectedValue = value;
@@ -92,14 +92,7 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: "Email",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
+                    labelText: "Email",                    
                   ),
                 ),
                 SizedBox(height: 10),
@@ -109,14 +102,7 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                   },
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    labelText: "Telefone",
-                    filled: true,
-                    border:OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)
-                    ),
-                    hintStyle: TextStyle(color: Colors.white),
-                    fillColor: Color.fromRGBO(196, 108, 68, 0.3),
-                    
+                    labelText: "Telefone",                    
                   ),
                 ),                
                 SizedBox(height: 50),
