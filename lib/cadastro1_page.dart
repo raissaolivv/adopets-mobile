@@ -1,9 +1,11 @@
 import 'package:adopets/cadastro2_page.dart';
+import 'package:adopets/cadastro_dados.dart';
 import 'package:estados_municipios/estados_municipios.dart';
 import 'package:flutter/material.dart';
 
 class Cadastro1Page extends StatefulWidget {
-  const Cadastro1Page({super.key});
+  final CadastroDados cadastroDados;
+  const Cadastro1Page({super.key, required this.cadastroDados});
 
   @override
   State<Cadastro1Page> createState() => _Cadastro1PageState();
@@ -12,15 +14,17 @@ class Cadastro1Page extends StatefulWidget {
 class _Cadastro1PageState extends State<Cadastro1Page> {
   final EstadosMunicipiosController controller = EstadosMunicipiosController();
 
-  List<Estado> estados = [];
-  List<Municipio> municipios = [];
-  List<String> _dropdownItems = [];
+  // List<Estado> estados = [];
+  // List<Municipio> municipios = [];
+  //List<String> _dropdownItems = [];
 
-  String? estadoSelecionado;
-  String? municipioSelecionado;
-  String? siglaEstadoSelecionado;
+  // String? estadoSelecionado;
+  // String? municipioSelecionado;
+  // String? siglaEstadoSelecionado;
 
   String? cep = "";
+  String? estado = "";
+  String? municipio = "";
   String? logradouro = "";
   String? numero = "";
   String? bairro = "";
@@ -30,24 +34,24 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
   @override
   void initState() {
     super.initState();
-    carregarEstados();
-    _dropdownItems = estados.map((estado) => estado.nome).toList();
+    //carregarEstados();
+    //_dropdownItems = estados.map((estado) => estado.nome).toList();
   }
 
-  Future<void> carregarEstados() async {
-    final listaEstados = await controller.buscaTodosEstados();
-    setState(() {
-      estados = listaEstados;
-    });
-  }
+  // Future<void> carregarEstados() async {
+  //   final listaEstados = await controller.buscaTodosEstados();
+  //   setState(() {
+  //     estados = listaEstados;
+  //   });
+  // }
 
-  Future<void> carregarMunicipios(String sigla) async {
-    final listaMunicipios = await controller.buscaMunicipiosPorEstado(sigla);
-    setState(() {
-      municipios = listaMunicipios;
-      municipioSelecionado = null;
-    });
-  }
+  // Future<void> carregarMunicipios(String sigla) async {
+  //   final listaMunicipios = await controller.buscaMunicipiosPorEstado(sigla);
+  //   setState(() {
+  //     municipios = listaMunicipios;
+  //     municipioSelecionado = null;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +99,7 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 10),                
                 //   SizedBox(
                 //   child: Dropdown(
                 //     //items: estados.map((estado) => estado.nome).toList(),
@@ -137,17 +141,28 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                 TextField(
                   onChanged: (text) {
                     cep = text;
+                    widget.cadastroDados.endereco = cep;
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: "CEP"),
                 ),
+
                 SizedBox(height: 10),
                 TextField(
                   onChanged: (text) {
-                    logradouro = text;
+                    estado = text;
                   },
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(labelText: "Logradouro"),
+                  decoration: InputDecoration(labelText: "Estado"),
+                ),
+
+                SizedBox(height: 10),
+                TextField(
+                  onChanged: (text) {
+                    municipio = text;
+                  },
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(labelText: "Município"),
                 ),
 
                 SizedBox(height: 10),
@@ -177,9 +192,10 @@ class _Cadastro1PageState extends State<Cadastro1Page> {
                 SizedBox(height: 50),
                 GestureDetector(
                   onTap: () {
+                    widget.cadastroDados.endereco = "$cep, $estado, $municipio, $logradouro, $numero, $bairro, $complemento";
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Cadastro2Page()),
+                      MaterialPageRoute(builder: (context) => Cadastro2Page(cadastroDados: widget.cadastroDados)),
                     );
                   },
                   child: Text(

@@ -1,4 +1,5 @@
 import 'package:adopets/cadastro1_page.dart';
+import 'package:adopets/cadastro_dados.dart';
 import 'package:adopets/date_picker.dart';
 import 'package:adopets/dropdown.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  CadastroDados cadastroDados = CadastroDados();
+
   String nome = "";
   String sobrenome = "";
   String? selectedValue;
@@ -63,6 +66,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 TextField(
                   onChanged: (text) {
                     nome = text;
+                    //cadastroDados.nome = nome;
                   },
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
@@ -73,6 +77,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 TextField(
                   onChanged: (text) {
                     sobrenome = text;
+                    //cadastroDados.nome = ("${cadastroDados.nome} $sobrenome");
                   },
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
@@ -81,7 +86,13 @@ class _CadastroPageState extends State<CadastroPage> {
                 ),
                 SizedBox(height: 10),
                 //Campo data de nascimento
-                Center(child: DatePickerWidget()),
+                Center(
+                  child: DatePickerWidget(
+                    onDateSelected: (dataSelecionada) {
+                      cadastroDados.dataNasc = dataSelecionada;
+                    },
+                  ),
+                ),
                 SizedBox(height: 10),
                 SizedBox(
                   child: Dropdown(
@@ -97,6 +108,7 @@ class _CadastroPageState extends State<CadastroPage> {
                       setState(() {
                         selectedValue = value;
                       });
+                      cadastroDados.sexo = value;
                     },
                     key: ValueKey('dropdown_sexo_${selectedValue ?? "null"}'),
                   ),
@@ -104,9 +116,10 @@ class _CadastroPageState extends State<CadastroPage> {
                 SizedBox(height: 50),
                 GestureDetector(
                   onTap: () {
+                    cadastroDados.nome = "$nome $sobrenome";
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Cadastro1Page()),
+                      MaterialPageRoute(builder: (context) => Cadastro1Page(cadastroDados: cadastroDados)),
                     );
                   },
                   child: Text(

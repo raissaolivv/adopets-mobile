@@ -31,6 +31,7 @@ class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, 
         elevation: 4.0,
         backgroundColor: Color.fromRGBO(218, 196, 176, 1.0),
         

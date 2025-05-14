@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DatePickerWidget extends StatefulWidget {
-  const DatePickerWidget({super.key});
+  final Function(DateTime) onDateSelected;
+
+  const DatePickerWidget({super.key, required this.onDateSelected});
 
   @override
   _DatePickerWidgetState createState() => _DatePickerWidgetState();
 }
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
+  DateTime? selectedDate;
   final TextEditingController _dateController = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -23,6 +26,9 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
          String formattedMonth = picked.month < 10 ? "0${picked.month}" : "${picked.month}";
         _dateController.text = "${picked.day}/$formattedMonth/${picked.year}";
       });
+    
+    widget.onDateSelected(picked);
+    
     }
   }
 

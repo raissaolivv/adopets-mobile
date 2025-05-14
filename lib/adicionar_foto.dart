@@ -4,11 +4,16 @@ import 'package:image_picker/image_picker.dart';
 
 class AdicionarFotoPage extends StatefulWidget {
   final String descricaoImagem;
-  final bool permiteMultiplasImagens;
+  final bool permiteMultiplasImagens;  
+  final List<File> imagensSelecionadas;
+  final Function(List<File>) onImagensSelecionadas;
 
-  const AdicionarFotoPage({super.key, 
+  const AdicionarFotoPage({
+    super.key, 
     required this.descricaoImagem,
-    required this.permiteMultiplasImagens
+    required this.permiteMultiplasImagens,    
+    required this.imagensSelecionadas,
+    required this.onImagensSelecionadas,
   });
 
   @override
@@ -29,10 +34,10 @@ class _AdicionarFotoPageState extends State<AdicionarFotoPage> {
         } else {
           _imagensSelecionadas = [File(imagem.path)];
         }
+        widget.onImagensSelecionadas(_imagensSelecionadas);       
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

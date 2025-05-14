@@ -1,10 +1,11 @@
-import 'package:adopets/adicionar_foto.dart';
 import 'package:adopets/cadastro3_page.dart';
+import 'package:adopets/cadastro_dados.dart';
 import 'package:adopets/dropdown.dart';
 import 'package:flutter/material.dart';
 
 class Cadastro2Page extends StatefulWidget {
-  const Cadastro2Page({super.key});
+  final CadastroDados cadastroDados;
+  const Cadastro2Page({super.key, required this.cadastroDados});
 
   @override
   State<Cadastro2Page> createState() => _Cadastro2PageState();
@@ -67,11 +68,11 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                       ),
                   ),                     
                   SizedBox(height: 10),
-                  SizedBox(
-                    width: 350, 
-                    height: 160, 
-                    child: AdicionarFotoPage(descricaoImagem: "Adicione uma foto de perfil", permiteMultiplasImagens: false),
-                  ),
+                  // SizedBox(
+                  //   width: 350, 
+                  //   height: 160, 
+                  //   child: AdicionarFotoPage(descricaoImagem: "Adicione uma foto de perfil", permiteMultiplasImagens: false),
+                  // ),
                   SizedBox(height: 10),
                   SizedBox(
                   child: Dropdown(items: ["Casa", "Apartamento", "Kitnet", "Campo", "Outro"],
@@ -80,8 +81,9 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                                     setState(() {
                                       selectedValue = value;
                                     });
+                                    widget.cadastroDados.tipoMoradia =  selectedValue;
                                   }, 
-                                  key: ValueKey('dropdown_sexo_${selectedValue ?? "null"}'),
+                                  key: ValueKey('dropdown_moradia_${selectedValue ?? "null"}'),
                         ),
                   
                 ),
@@ -89,6 +91,7 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                 TextField(
                   onChanged: (text){
                     email = text;
+                    widget.cadastroDados.email = email;
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -99,6 +102,7 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                 TextField(
                   onChanged: (text){
                     telefone = text;
+                    widget.cadastroDados.telefone = telefone;
                   },
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
@@ -110,7 +114,7 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
                   onTap:(){
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => Cadastro3Page()),
+                      MaterialPageRoute(builder: (context) => Cadastro3Page(cadastroDados: widget.cadastroDados)),
                       );
                   },                    
                   child: Text(

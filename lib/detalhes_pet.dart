@@ -1,30 +1,79 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class DetalhesPetPage extends StatelessWidget {
-  //final Map<String, dynamic> dados;
+class DetalhesPetPage extends StatefulWidget {
+  final int petId;
 
-  Map<String, dynamic> dados = {
-    'nome': 'Luna',
-    'especie': 'Cachorro',
-    'idade': 2,
-    'sexo': 'Fêmea',
-    'porte': 'Pequeno',
-    'descricao':
-        'Muito dócil e sociável. Adora brincar com crianças e outros animais.',
-    'imagens': [
-      'assets/images/dog1.jpg',
-      'assets/images/dog2.jpg',
-      'assets/images/dog3.jpg',
-    ],
-  };
+  const DetalhesPetPage({super.key, required this.petId});
 
-  //const DetalhesPetPage({super.key, required this.dados});
+  @override
+  State<DetalhesPetPage> createState() => _DetalhesPetPageState();
+}
+
+class _DetalhesPetPageState extends State<DetalhesPetPage> {
+  Map<String, dynamic>? dadosPet;
+  Map<String, dynamic>? dadosDoador;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarDados();
+  }
+
+  Future<void> _carregarDados() async {
+    try {
+      final petResponse = await http.get(
+        Uri.parse('http://192.168.1.237:8080/pets/${widget.petId}'),
+      );
+
+      if (petResponse.statusCode == 200) {
+        final petData = Map<String, dynamic>.from(jsonDecode(petResponse.body));
+
+        setState(() {
+          dadosPet = petData;
+        });
+
+        // final prefs = await SharedPreferences.getInstance();
+        // final int? usuarioId = prefs.getInt('usuarioId');
+
+        // if (usuarioId != null) {
+
+        final usuarioId = dadosPet!['usuario']['id'];
+        final doadorResponse = await http.get(
+          Uri.parse(
+            'http://192.168.1.237:8080/usuario/$usuarioId',
+          ),
+        );
+
+        if (doadorResponse.statusCode == 200) {
+          final doadorData = Map<String, dynamic>.from(
+            jsonDecode(doadorResponse.body),
+          );
+
+          setState(() {
+            dadosDoador = doadorData;
+            loading = false;
+          });
+        }
+        // }
+      }
+    } catch (e) {
+      print('Erro ao carregar dados: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> imagens = dados['imagens'];
+    if (loading || dadosPet == null || dadosDoador == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    List<dynamic> imagens = dadosPet!['imagens'] ?? [];
 
     return Scaffold(
       appBar: AppBar(
@@ -93,56 +142,49 @@ class DetalhesPetPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Nome: ${dados['nome']}",
+                    "Nome: ${dadosPet!['nome']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Espécie: ${dados['especie']}",
+                    "Espécie: ${dadosPet!['especie']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Idade: ${dados['idade']} ano(s)",
+                    "Idade: ${dadosPet!['idade']} ano(s)",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Sexo: ${dados['sexo']}",
+                    "Sexo: ${dadosPet!['sexo']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Porte: ${dados['porte']}",
+                    "Porte: ${dadosPet!['porte']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Raça: ${dados['raça']}",
+                    "Raça: ${dadosPet!['raca']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Vacinas já aplicadas: ${dados['vacinas']}",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: const Color.fromARGB(255, 236, 221, 221),
-                    ),
-                  ),
-                  Text(
-                    "Descrição: ${dados['descricao']}",
+                    "Descrição: ${dadosPet!['descricao']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
@@ -182,21 +224,21 @@ class DetalhesPetPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Nome do doador: ${dados['nome_doador']}",
+                    "Nome do doador: ${dadosPet!['usuario']['nome']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Telefone do doador: ${dados['telefone_doador']}",
+                    "Telefone do doador: ${dadosPet!['usuario']['telefone']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
                     ),
                   ),
                   Text(
-                    "Email do doador: ${dados['email_doador']}",
+                    "Email do doador: ${dadosPet!['usuario']['email']}",
                     style: TextStyle(
                       fontSize: 18,
                       color: const Color.fromARGB(255, 236, 221, 221),
@@ -210,23 +252,27 @@ class DetalhesPetPage extends StatelessWidget {
 
             Align(
               alignment: Alignment.centerRight,
-              child:
-                ElevatedButton.icon(
-                  onPressed: () {
-                    final telefone =
-                        "5535999169555"; // insira aqui o número com DDI e DDD, sem espaços ou traços
-                    final mensagem = Uri.encodeComponent(
-                      "Olá! Estou interessado(a) no pet ${dados['nome']}",
-                    );
-                    final url = Uri.parse("https://wa.me/$telefone?text=$mensagem");
-                    launchUrl(url, mode: LaunchMode.externalApplication);
-                  },
-                  icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(216, 99, 73, 0.7),
-                  ),
-                  label: Text("Enviar mensagem", style: TextStyle(color: Colors.white)),
-                )
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  final telefone =
+                      dadosPet!['usuario']['telefone']; // insira aqui o número com DDI e DDD, sem espaços ou traços
+                  final mensagem = Uri.encodeComponent(
+                    "Olá! Estou interessado(a) no pet ${dadosPet!['nome']}",
+                  );
+                  final url = Uri.parse(
+                    "https://wa.me/$telefone?text=$mensagem",
+                  );
+                  launchUrl(url, mode: LaunchMode.externalApplication);
+                },
+                icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(216, 99, 73, 0.7),
+                ),
+                label: Text(
+                  "Enviar mensagem",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),

@@ -40,6 +40,9 @@ dependencies:
   estados_municipios: ^2.0.2
   url_launcher: ^6.2.1
   font_awesome_flutter: ^10.7.0
+  http: ^0.13.5
+  diacritic: ^0.1.3
+  shared_preferences: ^2.2.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,6 +79,7 @@ flutter:
     - assets\images\preferencias.png
     - assets\images\home.png
     - assets\images\curtir.png
+    - assets\images\curtida.png
     - assets\images\compartilhar.png
     - assets\images\saber_mais.png
     
