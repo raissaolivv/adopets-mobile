@@ -34,6 +34,7 @@ class _CadastroPetState extends State<CadastroPet> {
     int? usuarioId = prefs.getInt('usuarioId');
     int? perfilId = prefs.getInt('perfilId');
 
+
     final responseUsuario = await http.post(
       urlUsuario,
       headers: {'Content-Type': 'application/json'},
@@ -56,7 +57,7 @@ class _CadastroPetState extends State<CadastroPet> {
       final int petId = responseBody['id'];
 
       await cadastrarPublicacao(petId, usuarioId, perfilId);
-      //await enviarImagens(petId);
+      await enviarImagens(petId);
 
       print('Cadastro finalizado com sucesso!');
     } else {
@@ -87,7 +88,7 @@ class _CadastroPetState extends State<CadastroPet> {
   }
 
   Future<void> enviarImagens(int petId) async {
-    final uri = Uri.parse('http://192.168.1.237:8080/pets/{id}/imagens');
+    final uri = Uri.parse('http://192.168.1.237:8080/pets/$petId/imagens');
 
     var request = http.MultipartRequest('POST', uri);
 

@@ -31,7 +31,7 @@ class _Cadastro2PageState extends State<Cadastro2Page> {
               height: 30,
             ),
             SizedBox(width: 10),
-            Text("Adopets"),
+            Text("Adota Um"),
           ],
         ),
       ),

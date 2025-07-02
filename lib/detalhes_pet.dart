@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -46,9 +45,7 @@ class _DetalhesPetPageState extends State<DetalhesPetPage> {
 
         final usuarioId = dadosPet!['usuario']['id'];
         final doadorResponse = await http.get(
-          Uri.parse(
-            'http://192.168.1.237:8080/usuario/$usuarioId',
-          ),
+          Uri.parse('http://192.168.1.237:8080/usuario/$usuarioId'),
         );
 
         if (doadorResponse.statusCode == 200) {
@@ -85,7 +82,7 @@ class _DetalhesPetPageState extends State<DetalhesPetPage> {
           children: [
             Image.asset("assets/images/logo.png", width: 30, height: 30),
             SizedBox(width: 10),
-            Text("Adopets"),
+            Text("Adota Um"),
           ],
         ),
       ),
@@ -104,10 +101,13 @@ class _DetalhesPetPageState extends State<DetalhesPetPage> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(right: 8),
-                      child: Image.asset(
-                        imagens[index],
+                      child: Image.network(
+                        'http://192.168.1.237:8080${imagens[index]['caminho']}',
                         width: 200,
                         fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, error, stackTrace) =>
+                                Icon(Icons.broken_image),
                       ),
                     );
                   },

@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: "Adopets",
+          title: "Adota Um",
           theme: ThemeData(
             scaffoldBackgroundColor: Color.fromRGBO(218, 196, 176, 1.0),
             brightness:

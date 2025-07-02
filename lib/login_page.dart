@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Image.asset("assets/images/logo.png", width: 30, height: 30),
             SizedBox(width: 10),
-            Text("Adopets"),
+            Text("Adota Um"),
           ],
         ),
       ),

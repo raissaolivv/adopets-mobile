@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class Publicacao extends StatefulWidget {
   final String nomePet;
   final String nomeDoador;
@@ -12,6 +11,7 @@ class Publicacao extends StatefulWidget {
   final List<String> imagens;
   final String contexto;
   final int publicacaoId;
+  final bool adotado;
   final List<int> publicacoesCurtidasIds;
 
   const Publicacao({
@@ -23,6 +23,7 @@ class Publicacao extends StatefulWidget {
     required this.imagens,
     required this.contexto,
     required this.publicacaoId,
+    required this.adotado,
     required this.publicacoesCurtidasIds,
   });
 
@@ -45,13 +46,27 @@ class _PublicacaoState extends State<Publicacao> {
     if (perfilId == null) return;
 
     final response = await http.put(
-      Uri.parse('http://192.168.1.237:8080/perfil/$perfilId/curtir/${widget.publicacaoId}'),
+      Uri.parse(
+        'http://192.168.1.237:8080/perfil/$perfilId/curtir/${widget.publicacaoId}',
+      ),
     );
 
     if (response.statusCode == 200) {
       setState(() {
         curtida = true;
       });
+    }
+  }
+
+  Future<bool> marcarComoAdotado(int petId) async {
+    final url = Uri.parse('http://192.168.1.237:8080/pets/$petId/adotar');
+    final response = await http.put(url);
+    
+    if (response.statusCode == 204) {
+      return true;
+    } else {
+      print('Erro ao marcar como adotado: ${response.body}');
+      return false;
     }
   }
 
@@ -65,6 +80,19 @@ class _PublicacaoState extends State<Publicacao> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (widget.adotado)
+            Container(
+              color:  Color.fromRGBO(188, 68, 60, 1),
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              child: Text(
+                'ADOTADO',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ),
           // Carrossel de imagens
           if (widget.imagens.isNotEmpty)
             SizedBox(
@@ -72,7 +100,6 @@ class _PublicacaoState extends State<Publicacao> {
               child: PageView.builder(
                 itemCount: widget.imagens.length,
                 itemBuilder: (context, index) {
-
                   final imagem = widget.imagens[index];
 
                   return ClipRRect(
@@ -89,7 +116,7 @@ class _PublicacaoState extends State<Publicacao> {
                                   (context, error, stackTrace) =>
                                       const Icon(Icons.broken_image),
                             )
-                            : Image.asset(
+                            : Image.network(
                               imagem,
                               fit: BoxFit.cover,
                               width: double.infinity,
@@ -134,7 +161,9 @@ class _PublicacaoState extends State<Publicacao> {
           TextButton.icon(
             onPressed: _curtir,
             icon: Image.asset(
-              curtida ? "assets/images/curtida.png" : "assets/images/curtir.png",
+              curtida
+                  ? "assets/images/curtida.png"
+                  : "assets/images/curtir.png",
               width: 24,
               height: 24,
             ),
@@ -159,7 +188,10 @@ class _PublicacaoState extends State<Publicacao> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DetalhesPetPage(petId: widget.publicacaoId)),
+                MaterialPageRoute(
+                  builder:
+                      (context) => DetalhesPetPage(petId: widget.publicacaoId),
+                ),
               );
             },
             icon: Image.asset(
@@ -179,7 +211,21 @@ class _PublicacaoState extends State<Publicacao> {
         alignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () async {
+              bool sucesso = await marcarComoAdotado(
+                widget.publicacaoId,
+              ); // 👈 passe o ID do pet
+
+              if (sucesso) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Pet marcado como adotado!')),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Erro ao marcar como adotado')),
+                );
+              }
+            },
             icon: Icon(
               Icons.pets,
               color: Color.fromRGBO(188, 68, 60, 1),
@@ -224,7 +270,10 @@ class _PublicacaoState extends State<Publicacao> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DetalhesPetPage(petId: widget.publicacaoId)),
+                MaterialPageRoute(
+                  builder:
+                      (context) => DetalhesPetPage(petId: widget.publicacaoId),
+                ),
               );
             },
             icon: Image.asset(
@@ -244,6 +293,3 @@ class _PublicacaoState extends State<Publicacao> {
     }
   }
 }
-
-
-

@@ -36,7 +36,9 @@ class _MeuPerfilState extends State<MeuPerfil> {
     if (perfilId == null) return;
 
     final responseMeusPets = await http.get(
-      Uri.parse('http://192.168.1.237:8080/perfil/$perfilId/animaisCadastrados'),
+      Uri.parse(
+        'http://192.168.1.237:8080/perfil/$perfilId/animaisCadastrados',
+      ),
     );
 
     final responseCurtidas = await http.get(
@@ -46,13 +48,12 @@ class _MeuPerfilState extends State<MeuPerfil> {
     if (responseMeusPets.statusCode == 200 &&
         responseCurtidas.statusCode == 200) {
       setState(() {
-        minhasPublicacoes = List.from(
-          jsonDecode(responseMeusPets.body),
-        );
+        minhasPublicacoes = List.from(jsonDecode(responseMeusPets.body));
         publicacoesCurtidas = List.from(jsonDecode(responseCurtidas.body));
       });
     }
   }
+
   Future<void> carregarCurtidas() async {
     final prefs = await SharedPreferences.getInstance();
     int? perfilId = prefs.getInt('perfilId');
@@ -89,7 +90,6 @@ class _MeuPerfilState extends State<MeuPerfil> {
             children: [
               CircleAvatar(
                 radius: 40,
-                backgroundImage: AssetImage('assets/images/dog1.jpg'),
               ),
               SizedBox(height: 10),
               Text(
@@ -109,9 +109,13 @@ class _MeuPerfilState extends State<MeuPerfil> {
                         nomePet: pub['nome'],
                         idadePet: pub['idade'],
                         especie: pub['especie'],
-                        imagens: pub['fotos'] ?? [],
+                        adotado: pub['adotado'],
+                        imagens:
+                            (pub['imagens'] as List<dynamic>)
+                                .map((img) => "http://192.168.1.237:8080${img['caminho']}")
+                                .toList(),
                         contexto: "minhas_publicacoes",
-                        publicacoesCurtidasIds: publicacoesCurtidasIds
+                        publicacoesCurtidasIds: publicacoesCurtidasIds,
                       );
                     }).toList(),
               ),
@@ -125,9 +129,13 @@ class _MeuPerfilState extends State<MeuPerfil> {
                         nomePet: pub['pet']['nome'],
                         idadePet: pub['pet']['idade'],
                         especie: pub['pet']['especie'],
-                        imagens: pub['pet']['fotos'] ?? [],
+                        adotado: pub['pet']['adotado'],
+                        imagens:
+                            (pub['pet']['imagens'] as List<dynamic>)
+                                .map((img) => "http://192.168.1.237:8080${img['caminho']}")
+                                .toList(),
                         contexto: "curtidas",
-                        publicacoesCurtidasIds: publicacoesCurtidasIds
+                        publicacoesCurtidasIds: publicacoesCurtidasIds,
                       );
                     }).toList(),
               ),

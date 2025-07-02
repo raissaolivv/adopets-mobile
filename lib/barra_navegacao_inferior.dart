@@ -44,7 +44,7 @@ class _BottomNavigationBarExampleState extends State<BottomNavigationBarExample>
               height: 30,
             ),
             SizedBox(width: 10),
-            Text("Adopets"),
+            Text("Adota Um"),
           ],
         ),
       ),

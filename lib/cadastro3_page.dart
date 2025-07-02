@@ -61,7 +61,7 @@ class _Cadastro3PageState extends State<Cadastro3Page> {
           children: [
             Image.asset("assets/images/logo.png", width: 30, height: 30),
             SizedBox(width: 10),
-            Text("Adopets"),
+            Text("Adota Um"),
           ],
         ),
       ),
